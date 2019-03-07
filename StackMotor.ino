@@ -1,3 +1,6 @@
+//Code to send the values to the ROV for a different motor controller we were using
+//Similar to the other program but values are written to the motors differently
+
 int size = 6;
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
