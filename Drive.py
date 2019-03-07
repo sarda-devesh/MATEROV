@@ -17,7 +17,7 @@ thetan = [(math.pi)/9.0 for i in range(0,6)]
 alphan = [(8.11 * math.pi)/180.0 for i in range(0,6)]
 acoe = [[0 for i in range(0,6)] for j in range(0,6)]
 fsigns = [[1,1,1],[1,-1,-1],[1,1,1],[1,-1,-1],[0,0,1],[0,0,1]]
-#calculate the unit force (Page 2 - 3) in document
+#calculate the unit force that the motor exerts in respect to the center of gravity
 def calculateforces(n):
     tnx = fsigns[n][0] * fn[n] * math.cos(thetan[n])
     tny = fsigns[n][1] * fn[n] * math.sin(thetan[n])
@@ -26,7 +26,7 @@ def calculateforces(n):
     v = [tnx/lengthn,tny/lengthn,tnz/lengthn]
     return v
 
-#Calculating the radius needed for the cross product
+#Calculating the radius of the motor from the center of gravity
 def calulaterTn(n):
     x = locations[n][0] - cG[0]
     y = locations[n][1] - cG[1]
@@ -41,7 +41,7 @@ def Torque(radius,force):
     aTz = (radius[0] * force[1] - radius[1] * force[0])
     return [aTx,aTy,aTz]
 
-#Update the values in the a table
+#Update the values of coefficents in our 6 equations
 def updatecoefficents():
     for i in range(0,6):
         currentforce = calculateforces(i)
@@ -51,26 +51,26 @@ def updatecoefficents():
         for j in range(3,6):
             acoe[j][i] = currenttorque[j - 3]
             
-
+#Solve the linear equation for user input using Gaussian elimination
 def solvelinearequation(answers):
     if(len(acoe) == len(answers)):
         return np.linalg.solve(acoe,answers)
     else:
         return -1
-
+#Print array of coefficents
 def printacoe():
     for i in range(0,6):
         v = ""
         for j in range(0,6):
             v += str(round(acoe[i][j],3)) + " "
         print(v)
-
+#Print the given array rounded to n decimal places
 def arrayrounded(y,n):
     v = ""
     for i in range(0,len(y)):
         v += str(round(y[i],n)) + " "
     return v
-
+#Adjust the raw solutions to be betweeen -250 and 250
 def adjustmotorvalues(motor):
     r = []
     max = math.fabs(motor[0])
@@ -88,7 +88,7 @@ def adjustmotorvalues(motor):
     #for i in range(0,len(r)):
            # r[i] = 100.0 * r[i]
     return r
-
+#User calls the method to get the solution
 def getsolution(y):
     return arrayrounded(solvelinearequation(y),3)
 
