@@ -1,4 +1,4 @@
-# code gathered from pygame example and then altered
+
 
 import serial
 import pygame
