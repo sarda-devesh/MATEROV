@@ -3,6 +3,7 @@ import threading
 import pygame
 from DriveClass import Drive
 import serial
+#Create a class so that multiple video displays can run together
 class camThread(threading.Thread):
     def __init__(self, previewName, camID):
         threading.Thread.__init__(self)
@@ -30,7 +31,7 @@ def camPreview(previewName, camID):
             break
     cv2.destroyWindow(previewName)
 
-# Create two threads as follows
+# Create two threads of camera display and intialize all necessary variables
 size = [1,1]
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("My Game")
@@ -53,6 +54,7 @@ while done==False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             done=True 
+    #Take in input from the controller and adjust motor speeds accordingly
     pilotInput[0] = joystick.get_axis(0)
     pilotInput[1] = -1.0 * joystick.get_axis(1)
     pilotInput[2] = -1.0 * joystick.get_axis(2) #Right is up
