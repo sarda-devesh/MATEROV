@@ -1,17 +1,16 @@
 import numpy as np
 import cv2
-
+#Get the most recent working camera
 def getNumCam():
     num = 0
     while True:
         cp = cv2.VideoCapture(num)
         if cp.isOpened():
-            # working capture
             num += 1
         else:
             break
     return num
-
+#Initiliaze the variables
 frontCam = 0
 rearCam = 1
 cap = cv2.VideoCapture(frontCam)
@@ -24,15 +23,10 @@ cop.set(4,1080)
 sc = 0.4
 
 while(True):
-    
-    # Capture frame-by-frame
+    # Capture frame-by-frame and overlay one footage on top of the other
     met, img1 = cap.read()
     mot, img2 = cop.read()
-
-    # Our operations on the frame come here
-    #frame = cv2.resize(frame, (0, 0), None, .5, .5)
     img2 = cv2.resize(img2, (0, 0), None, sc, sc)
-
     rows,cols,channels = img1.shape
     y = cols/2
     x = 0    
@@ -47,8 +41,7 @@ while(True):
     dst = cv2.add(img1_bg,img2_fg)
     img1[x:x+rows, y:y+cols] = dst
     
-    # Display the resulting frame
-    #numpy_horizontal = np.hstack((frame, frome))
+    # Display the resulting frame and perform operations (like switch cameras) based on user input
     
     cv2.imshow('Numpy Horizontal', img1)
     k = cv2.waitKey(1)
