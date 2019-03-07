@@ -1,5 +1,4 @@
-# USAGE
-# python detect_shapes.py --image shapes_and_colors.png
+#Detect shape of objects
 
 # import the necessary packages
 from pyimagesearch.shapedetector import ShapeDetector
@@ -7,11 +6,6 @@ import argparse
 import imutils
 import cv2
 
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-	help="path to the input image")
-args = vars(ap.parse_args())
 
 # load the image and resize it to a smaller factor so that
 # the shapes can be approximated better
@@ -50,6 +44,6 @@ for c in cnts:
 	cv2.putText(image, shape, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
 		0.5, (255, 255, 255), 2)
 
-	# show the output image
-	cv2.imshow("Image", image)
-	cv2.waitKey(0)
+# show the result for all the shapes in the image
+cv2.imshow("Image", image)
+cv2.waitKey(0)
