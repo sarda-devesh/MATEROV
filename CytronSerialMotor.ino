@@ -1,3 +1,4 @@
+//Initialize the variables necessary
 int dirPin[] = {2, 4, 7, 8, 12, 13};
 int s = 6;
 int pvmPin[] = {3, 5, 6, 9, 10, 11};
@@ -7,9 +8,8 @@ int val[] = {0, 0, 0, 0, 0, 0};
 int lastVal[] = {0, 0, 0, 0, 0, 0};
 String msg = "";
 String msgCurr = "";
-
+//Setup the motors
 void setup() {
-  // put your setup code here, to run once:
   for (int x = 0; x < s; x++) {
     pinMode(dirPin[x], OUTPUT);
   }
@@ -19,7 +19,7 @@ void setup() {
   }
   Serial.begin(9600);
 }
-
+//Read input from python and send it to the motors
 void loop() {
   if (Serial.available()) {
     process();
@@ -35,7 +35,7 @@ void loop() {
     lastVal[i] = val[i];
   }
 }
-
+//Read input from python and convert it to motor values. Sample Input: 125,125,125,125,-125,-125;
 void process() {
   char chrIn = Serial.read();
   msg += chrIn;
