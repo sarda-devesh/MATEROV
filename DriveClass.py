@@ -1,3 +1,5 @@
+#Exact same as the Drive code but in a class to that it can be easily called by other programs
+
 #import statments
 import math
 import numpy as np
