@@ -1,6 +1,6 @@
 import cv2
 import threading
-
+#Class for displaying one camera
 class camThread(threading.Thread):
     def __init__(self, previewName, camID):
         threading.Thread.__init__(self)
@@ -28,7 +28,7 @@ def camPreview(previewName, camID):
             break
     cv2.destroyWindow(previewName)
 
-# Create two threads as follows
+# Create two threads which displays video from camera seperately 
 
 thread1 = camThread("Camera 1", 3)
 thread2 = camThread("Camera 2", 2)
